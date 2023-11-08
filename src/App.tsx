@@ -1,6 +1,10 @@
+import { Outlet } from 'react-router-dom';
+
 function App() {
   return (
-    <h1 className="text-center text-blue-400 text-[5rem]">GENIUS GAME</h1>
+    <div className="w-full h-full min-h-screen bg-[url(/images/background.jpg)] bg-cover bg-no-repeat bg-center flex flex-col justify-center items-center">
+      <Outlet />
+    </div>
   );
 }
 
