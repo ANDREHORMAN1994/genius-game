@@ -1,6 +1,12 @@
+import Header from '../../components/Header';
+import Simon from '../../components/Simon';
+
 function Game() {
   return (
-    <h1 className="text-center text-text-title font-title text-[3rem]">Game</h1>
+    <div className="z-10 flex flex-col w-4/6 h-screen">
+      <Header />
+      <Simon />
+    </div>
   );
 }
 
