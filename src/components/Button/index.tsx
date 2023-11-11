@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface IButtonProps {
   color: string;
@@ -22,12 +22,12 @@ function Button({
   const [status, setStatus] = useState<boolean>(false);
   const [timer, setTimer] = useState<number>(1000);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setStatus(true);
     setTimeout(() => {
       setStatus(false);
-    }, 500);
-  };
+    }, timer);
+  }, [timer]);
 
   useEffect(() => {
     if (sequence.length > 0) {
@@ -37,7 +37,13 @@ function Button({
         }
       });
     }
-  }, [color, sequence, timer]);
+  }, [color, handleClick, sequence, timer]);
+
+  useEffect(() => {
+    if (sequence.length > 0) {
+      setTimer(1000 - (sequence.length * 50));
+    }
+  }, [sequence]);
 
   return (
     <button
