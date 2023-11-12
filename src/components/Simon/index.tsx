@@ -1,28 +1,69 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import Button from '../Button';
 import { BTN_COLORS } from '../../utils';
 
 function Simon() {
-  const [level, setLevel] = useState<number>(1);
   const [sequence, setSequence] = useState<string[]>([]);
+  const [userSequence, setUserSequence] = useState<string[]>([]);
   const [timer, setTimer] = useState<number>(1000);
+  const [isUserTurn, setIsUserTurn] = useState<boolean>(false);
   const timerRef = useRef<number>(timer);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const playGame = () => {
-      const randomIndex = Math.floor(Math.random() * BTN_COLORS.length);
-      setSequence((prevSequence) => [...prevSequence, BTN_COLORS[randomIndex].color]);
-    };
-    playGame();
-  }, [level]);
+  const playGame = () => {
+    const randomIndex = Math.floor(Math.random() * BTN_COLORS.length);
+    setSequence((prevSequence) => [
+      ...prevSequence,
+      BTN_COLORS[randomIndex].color,
+    ]);
+  };
+
+  const gameOver = useCallback(() => {
+    void Swal.fire({
+      title: 'Oops...',
+      text: 'Você errou a sequência!',
+      icon: 'error',
+      confirmButtonText: 'Jogar novamente?',
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setSequence([]);
+        setUserSequence([]);
+        navigate('/');
+      }
+    });
+  }, [navigate]);
+
+  const addLevel = (color: string) => {
+    if (isUserTurn) {
+      const newUserSequence = [...userSequence, color];
+      const verifySequenceError = newUserSequence.some(
+        (c, index) => c !== sequence[index],
+      );
+      if (verifySequenceError) {
+        gameOver();
+      } else if (sequence.length === newUserSequence.length) {
+        playGame();
+        setIsUserTurn(false);
+      } else {
+        setUserSequence(newUserSequence);
+      }
+    }
+  };
 
   useEffect(() => {
     if (sequence.length > 0) {
-      const newTimer = Math.max(1000 - (sequence.length - 1) * 50, 720);
+      const newTimer = Math.max(1000 - (sequence.length - 1) * 100, 600);
       timerRef.current = newTimer;
       setTimer(newTimer);
     }
   }, [sequence]);
+
+  useEffect(playGame, []);
 
   return (
     <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[35rem] h-[36.5rem] flex flex-col justify-center items-center">
@@ -31,23 +72,39 @@ function Simon() {
         src="/images/Simon-center.png"
         alt="Imagem da base do Simon"
       />
-      {BTN_COLORS.map(({
-        color, position, rounded, soundUrl, imgUrlOff, imgUrlOn, imgAlt,
-      }) => (
-        <Button
-          key={color}
-          color={color}
-          soundUrl={soundUrl}
-          imgUrlOff={imgUrlOff}
-          imgUrlOn={imgUrlOn}
-          imgAlt={imgAlt}
-          position={position}
-          rounded={rounded}
-          sequence={sequence}
-          timerRef={timerRef}
-        />
-      ))}
-      <button className="z-30 p-[3rem] bg-blue-300 absolute -bottom-40" type="button" onClick={() => setLevel(level + 1)}>next</button>
+      {BTN_COLORS.map(
+        ({
+          color,
+          position,
+          rounded,
+          soundUrl,
+          imgUrlOff,
+          imgUrlOn,
+          imgAlt,
+        }) => (
+          <Button
+            key={color}
+            color={color}
+            soundUrl={soundUrl}
+            imgUrlOff={imgUrlOff}
+            imgUrlOn={imgUrlOn}
+            imgAlt={imgAlt}
+            position={position}
+            rounded={rounded}
+            sequence={sequence}
+            timerRef={timerRef}
+            isUserTurn={isUserTurn}
+            setIsUserTurn={setIsUserTurn}
+            setUserSequence={setUserSequence}
+            addLevel={addLevel}
+          />
+        ),
+      )}
+      {isUserTurn && (
+        <p className="font-normal text-[3rem] text-white z-30 absolute -bottom-24">
+          Sua vez...
+        </p>
+      )}
     </div>
   );
 }
