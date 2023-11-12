@@ -24,7 +24,11 @@ function Simon() {
     ]);
   };
 
-  const gameOver = useCallback((message: string) => {
+  const gameOver = useCallback(async (message: string) => {
+    const audio = new Audio('/sounds/fail.mp3');
+    audio.volume = 1;
+    await audio.play();
+
     void Swal.fire({
       title: 'Oops...',
       text: message,
