@@ -88,7 +88,7 @@ function Button({
   return (
     <button
       type="button"
-      className={`${position} z-20 h-auto w-[20rem] ${rounded} overflow-hidden ${status ? 'hover:brightness-[1.2]' : 'hover:brightness-[.7]'} hover:scale-90 transition-all duration-100 ease-in-out ${isUserTurn ? 'cursor-pointer' : 'cursor-not-allowed'}}`}
+      className={`${position} z-20 h-auto w-[10rem] lg:w-[20rem] ${rounded} overflow-hidden ${status ? 'hover:brightness-[1.2]' : 'hover:brightness-[.7]'} hover:scale-90 transition-all duration-100 ease-in-out ${isUserTurn ? 'cursor-pointer' : 'cursor-not-allowed'}}`}
       onClick={handleClickUser}
       disabled={!isUserTurn}
     >

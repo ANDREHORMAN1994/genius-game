@@ -3,7 +3,7 @@ import Simon from '../../components/Simon';
 
 function Game() {
   return (
-    <div className="z-10 flex flex-col w-4/6 h-screen">
+    <div className="z-10 flex flex-col w-5/6 h-screen lg:w-4/6">
       <Header />
       <Simon />
     </div>

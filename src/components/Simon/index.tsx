@@ -45,14 +45,14 @@ function Simon() {
     });
   }, [navigate, setScore]);
 
-  const addLevel = (color: string) => {
+  const addLevel = async (color: string) => {
     if (isUserTurn) {
       const newUserSequence = [...userSequence, color];
       const verifySequenceError = newUserSequence.some(
         (c, index) => c !== sequence[index],
       );
       if (verifySequenceError) {
-        gameOver('Você errou a sequência!');
+        await gameOver('Você errou a sequência!');
       } else if (sequence.length === newUserSequence.length) {
         setScore(score + 1);
         maxHighest(score + 1);
@@ -75,9 +75,9 @@ function Simon() {
   useEffect(playGame, []);
 
   return (
-    <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[35rem] h-[36.5rem] flex flex-col justify-center items-center">
+    <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2  w-[20rem] h-[21.5rem] lg:w-[35rem] lg:h-[36.5rem] flex flex-col justify-center items-center">
       <img
-        className="z-40 w-[20rem] h-auto rounded-full"
+        className="z-40 w-[10.5rem] lg:w-[20rem] h-auto rounded-full"
         src="/images/Simon-center.png"
         alt="Imagem da base do Simon"
       />
@@ -111,7 +111,7 @@ function Simon() {
         ),
       )}
       {isUserTurn && (
-        <p className="font-normal text-[3rem] text-white z-30 absolute -bottom-24">
+        <p className="font-normal text-[1.5rem] lg:text-[3rem] text-white z-30 absolute -bottom-14 lg:-bottom-24">
           Sua vez...
         </p>
       )}
