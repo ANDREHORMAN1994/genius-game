@@ -1,10 +1,11 @@
 import {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useContext, useEffect, useRef, useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Button from '../Button';
 import { BTN_COLORS } from '../../utils';
+import { SimonContext } from '../../context/Provider';
 
 function Simon() {
   const [sequence, setSequence] = useState<string[]>([]);
@@ -13,6 +14,7 @@ function Simon() {
   const [isUserTurn, setIsUserTurn] = useState<boolean>(false);
   const timerRef = useRef<number>(timer);
   const navigate = useNavigate();
+  const { score, setScore, maxHighest } = useContext(SimonContext);
 
   const playGame = () => {
     const randomIndex = Math.floor(Math.random() * BTN_COLORS.length);
@@ -31,12 +33,13 @@ function Simon() {
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
+        setScore(0);
         setSequence([]);
         setUserSequence([]);
         navigate('/');
       }
     });
-  }, [navigate]);
+  }, [navigate, setScore]);
 
   const addLevel = (color: string) => {
     if (isUserTurn) {
@@ -47,6 +50,8 @@ function Simon() {
       if (verifySequenceError) {
         gameOver('Você errou a sequência!');
       } else if (sequence.length === newUserSequence.length) {
+        setScore(score + 1);
+        maxHighest(score + 1);
         playGame();
         setIsUserTurn(false);
       } else {

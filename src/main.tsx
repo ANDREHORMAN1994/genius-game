@@ -1,10 +1,12 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 import App from './App';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import './index.css';
 import Game from './pages/Game';
+import Provider from './context/Provider';
+import './index.css';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -22,5 +24,9 @@ const router = createBrowserRouter([{
 }]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />,
+  <CookiesProvider defaultSetOptions={{ path: '/' }}>
+    <Provider>
+      <RouterProvider router={router} />
+    </Provider>
+  </CookiesProvider>,
 );
