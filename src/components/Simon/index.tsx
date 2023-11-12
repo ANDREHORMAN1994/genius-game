@@ -5,6 +5,7 @@ import { BTN_COLORS } from '../../utils';
 function Simon() {
   const [level, setLevel] = useState<number>(1);
   const [sequence, setSequence] = useState<string[]>([]);
+  const [timer, setTimer] = useState<number>(1000);
 
   useEffect(() => {
     const playGame = () => {
@@ -13,6 +14,13 @@ function Simon() {
     };
     playGame();
   }, [level]);
+
+  useEffect(() => {
+    if (sequence.length > 0) {
+      const newTimer = Math.max(1000 - (sequence.length - 1) * 50, 720);
+      setTimer(newTimer);
+    }
+  }, [sequence]);
 
   return (
     <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[35rem] h-[36.5rem] flex flex-col justify-center items-center">
@@ -31,6 +39,7 @@ function Simon() {
           position={position}
           rounded={rounded}
           sequence={sequence}
+          timer={timer}
         />
       ))}
       <button className="z-30 p-[3rem] bg-blue-300 absolute -bottom-40" type="button" onClick={() => setLevel(level + 1)}>next</button>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface IButtonProps {
   color: string;
@@ -8,6 +8,7 @@ interface IButtonProps {
   position: string;
   rounded: string;
   sequence: string[];
+  timer: number;
 }
 
 function Button({
@@ -18,32 +19,33 @@ function Button({
   position,
   rounded,
   sequence,
+  timer,
 }: IButtonProps) {
   const [status, setStatus] = useState<boolean>(false);
-  const [timer, setTimer] = useState<number>(1000);
+  const statusRef = useRef<boolean>(status);
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
+    const TIMER_BTN_ON = 500;
     setStatus(true);
     setTimeout(() => {
       setStatus(false);
-    }, timer);
-  }, [timer]);
+    }, TIMER_BTN_ON);
+  };
+
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
 
   useEffect(() => {
     if (sequence.length > 0) {
       sequence.forEach((c, index) => {
-        if (c === color) {
-          setTimeout(handleClick, (index + 1) * timer);
+        if (!statusRef.current && c === color) {
+          const TIMER_ACC_BTN = (index + 1) * timer;
+          setTimeout(handleClick, TIMER_ACC_BTN);
         }
       });
     }
-  }, [color, handleClick, sequence, timer]);
-
-  useEffect(() => {
-    if (sequence.length > 0) {
-      setTimer(1000 - (sequence.length * 50));
-    }
-  }, [sequence]);
+  }, [color, sequence, timer]);
 
   return (
     <button
