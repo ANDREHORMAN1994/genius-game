@@ -31,13 +31,16 @@ function Simon() {
         src="/images/Simon-center.png"
         alt="Imagem da base do Simon"
       />
-      {BTN_COLORS.map(({ color, position, rounded }) => (
+      {BTN_COLORS.map(({
+        color, position, rounded, soundUrl, imgUrlOff, imgUrlOn, imgAlt,
+      }) => (
         <Button
           key={color}
           color={color}
-          imgUrlOff={`/images/Simon-${color}-off.png`}
-          imgUrlOn={`/images/Simon-${color}-on.png`}
-          imgAlt={`Botão ${color} desligado`}
+          soundUrl={soundUrl}
+          imgUrlOff={imgUrlOff}
+          imgUrlOn={imgUrlOn}
+          imgAlt={imgAlt}
           position={position}
           rounded={rounded}
           sequence={sequence}

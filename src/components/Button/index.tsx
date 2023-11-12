@@ -4,6 +4,7 @@ import {
 
 interface IButtonProps {
   color: string;
+  soundUrl: string;
   imgUrlOff: string;
   imgUrlOn: string;
   imgAlt: string;
@@ -15,6 +16,7 @@ interface IButtonProps {
 
 function Button({
   color,
+  soundUrl,
   imgUrlOff,
   imgUrlOn,
   imgAlt,
@@ -28,7 +30,7 @@ function Button({
 
   const handleClick = useCallback(async () => {
     const TIMER_BTN_ON = 500;
-    const audio = new Audio('/sounds/btn1.mp3');
+    const audio = new Audio(soundUrl);
     audio.volume = 1;
 
     setStatus(true);
@@ -37,7 +39,7 @@ function Button({
       setStatus(false);
       audio.pause();
     }, TIMER_BTN_ON);
-  }, []);
+  }, [soundUrl]);
 
   useEffect(() => {
     statusRef.current = status;
