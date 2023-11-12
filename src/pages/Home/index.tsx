@@ -1,30 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 function Home() {
-  const [permission, setPermission] = useState<boolean>(false);
+  const permission = useOutletContext();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then((response) => {
-        if (response) {
-          console.log('Permisão concedida!');
-          setPermission(true);
-        }
-      })
-      .catch((error) => {
-        if (error instanceof DOMException) {
-          setPermission(false);
-          void Swal.fire({
-            title: 'Oops...',
-            text: 'Você precisa conceder permissão para jogar com som!',
-            icon: 'error',
-          });
-        }
-      });
-  }, []);
 
   return (
     <div className="bg-gradient-to-b from-gradient-initial via-gradient-middle to-gradient-final w-[30rem] h-[27rem] rounded-2xl p-[3rem] flex flex-col justify-start items-center z-10">

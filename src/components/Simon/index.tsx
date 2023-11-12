@@ -22,10 +22,10 @@ function Simon() {
     ]);
   };
 
-  const gameOver = useCallback(() => {
+  const gameOver = useCallback((message: string) => {
     void Swal.fire({
       title: 'Oops...',
-      text: 'Você errou a sequência!',
+      text: message,
       icon: 'error',
       confirmButtonText: 'Jogar novamente?',
       allowOutsideClick: false,
@@ -45,7 +45,7 @@ function Simon() {
         (c, index) => c !== sequence[index],
       );
       if (verifySequenceError) {
-        gameOver();
+        gameOver('Você errou a sequência!');
       } else if (sequence.length === newUserSequence.length) {
         playGame();
         setIsUserTurn(false);
@@ -97,6 +97,7 @@ function Simon() {
             setIsUserTurn={setIsUserTurn}
             setUserSequence={setUserSequence}
             addLevel={addLevel}
+            gameOver={gameOver}
           />
         ),
       )}

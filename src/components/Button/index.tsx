@@ -16,6 +16,7 @@ interface IButtonProps {
   setIsUserTurn: React.Dispatch<React.SetStateAction<boolean>>;
   setUserSequence: React.Dispatch<React.SetStateAction<string[]>>;
   addLevel: (color: string) => void;
+  gameOver: (message: string) => void;
 }
 
 function Button({
@@ -32,6 +33,7 @@ function Button({
   setIsUserTurn,
   setUserSequence,
   addLevel,
+  gameOver,
 }: IButtonProps) {
   const [status, setStatus] = useState<boolean>(false);
 
@@ -50,21 +52,25 @@ function Button({
   }, [addLevel, color, soundUrl]);
 
   const handleClickBot = useCallback(async (index: number) => {
-    const TIMER_BTN_ON = 500;
-    const audio = new Audio(soundUrl);
-    audio.volume = 1;
-    await audio.play();
+    try {
+      const TIMER_BTN_ON = 500;
+      const audio = new Audio(soundUrl);
+      audio.volume = 1;
+      await audio.play();
 
-    setStatus(true);
-    setTimeout(() => {
-      audio.pause();
-      setStatus(false);
-      if (index === sequence.length - 1) {
-        setIsUserTurn(true);
-        setUserSequence([]);
-      }
-    }, TIMER_BTN_ON);
-  }, [sequence.length, setIsUserTurn, setUserSequence, soundUrl]);
+      setStatus(true);
+      setTimeout(() => {
+        audio.pause();
+        setStatus(false);
+        if (index === sequence.length - 1) {
+          setIsUserTurn(true);
+          setUserSequence([]);
+        }
+      }, TIMER_BTN_ON);
+    } catch (error) {
+      gameOver('Você precisa conceder permissão de áudio para jogar!');
+    }
+  }, [gameOver, sequence.length, setIsUserTurn, setUserSequence, soundUrl]);
 
   useEffect(() => {
     if (sequence.length > 0 && !isUserTurn) {
