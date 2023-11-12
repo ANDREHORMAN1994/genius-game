@@ -28,5 +28,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-param-reassign': 'off',
     'no-void': 'off',
+    'no-console': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
   },
 }

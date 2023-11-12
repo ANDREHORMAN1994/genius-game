@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 
 interface IButtonProps {
   color: string;
@@ -8,7 +10,7 @@ interface IButtonProps {
   position: string;
   rounded: string;
   sequence: string[];
-  timer: number;
+  timerRef: React.MutableRefObject<number>;
 }
 
 function Button({
@@ -19,18 +21,23 @@ function Button({
   position,
   rounded,
   sequence,
-  timer,
+  timerRef,
 }: IButtonProps) {
   const [status, setStatus] = useState<boolean>(false);
   const statusRef = useRef<boolean>(status);
 
-  const handleClick = () => {
+  const handleClick = useCallback(async () => {
     const TIMER_BTN_ON = 500;
+    const audio = new Audio('/sounds/btn1.mp3');
+    audio.volume = 1;
+
     setStatus(true);
+    await audio.play();
     setTimeout(() => {
       setStatus(false);
+      audio.pause();
     }, TIMER_BTN_ON);
-  };
+  }, []);
 
   useEffect(() => {
     statusRef.current = status;
@@ -40,12 +47,12 @@ function Button({
     if (sequence.length > 0) {
       sequence.forEach((c, index) => {
         if (!statusRef.current && c === color) {
-          const TIMER_ACC_BTN = (index + 1) * timer;
+          const TIMER_ACC_BTN = (index + 1) * timerRef.current;
           setTimeout(handleClick, TIMER_ACC_BTN);
         }
       });
     }
-  }, [color, sequence, timer]);
+  }, [color, handleClick, sequence, timerRef]);
 
   return (
     <button

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from '../Button';
 import { BTN_COLORS } from '../../utils';
 
@@ -6,6 +6,7 @@ function Simon() {
   const [level, setLevel] = useState<number>(1);
   const [sequence, setSequence] = useState<string[]>([]);
   const [timer, setTimer] = useState<number>(1000);
+  const timerRef = useRef<number>(timer);
 
   useEffect(() => {
     const playGame = () => {
@@ -18,6 +19,7 @@ function Simon() {
   useEffect(() => {
     if (sequence.length > 0) {
       const newTimer = Math.max(1000 - (sequence.length - 1) * 50, 720);
+      timerRef.current = newTimer;
       setTimer(newTimer);
     }
   }, [sequence]);
@@ -39,7 +41,7 @@ function Simon() {
           position={position}
           rounded={rounded}
           sequence={sequence}
-          timer={timer}
+          timerRef={timerRef}
         />
       ))}
       <button className="z-30 p-[3rem] bg-blue-300 absolute -bottom-40" type="button" onClick={() => setLevel(level + 1)}>next</button>
