@@ -1,64 +1,54 @@
-# Genius Game
+<h1 align="center">
+  <p><img alt="Lâmpada" src="./.github/lamp.png" height="100px" /></p>
+  <span>GENIUS GAME</span>
+</h1>
 
-Vamos criar um jogo interativo e desafiador? O Genius Game, também conhecido como Simon Game, é um desafio de memória que estimula os jogadores a reproduzirem sequências de cores e sons. É uma excelente oportunidade para desenvolvermos nossas habilidades como desenvolvedores. Vamos colocar a mão na massa utilizando tecnologias de ponta como React JS, Typescript e Tailwind CSS.
+<p align="center">
+  <a href="#bookmark-sobre">Sobre</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#paintbrush-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="https://genius-game-react.vercel.app/" target="_blank">Aplicação na Vercel</a>
+</p>
 
-## 🤓 Antes de começar
+<p align="center">
+  <img alt="design do projeto" width="650px" src="./.github/mockup.png" />
+<p>
 
-Este mini projeto já inclui todas as imagens essenciais para o desenvolvimento, que podem ser encontradas no diretório `/public/images`, assim como todos os arquivos de som disponíveis no diretório `/public/sounds`. Sinta-se à vontade para utilizá-los conforme necessário ou substituí-los por outros arquivos de sua escolha.
+## :bookmark: Sobre
 
-## 🔨 Requisitos
+O **Genius Game** também conhecido como **Simon Game** é um jogo de memória que desafia os jogadores a repetirem sequências de cores e sons. Este jogo foi desenvolvido utilizando tecnologias de ponta como React JS, Typescript e Tailwind CSS.
 
-- Desenvolva a aplicação utilizando React JS, TypeScript e Tailwind CSS para garantir uma base sólida e moderna.
-- Crie uma tela inicial envolvente (Home) que sirva como ponto de partida para a experiência do jogo.
-- Implemente uma solicitação de permissão de uso de áudio do navegador, gerando um alerta de erro caso a permissão seja negada.
-- Elabore uma tela de jogo (Game) que apresente o layout distintivo do Genius, com botões coloridos representando cada elemento do jogo.
-- Permita a interação com os botões apagados, gerando sons específicos e iluminando os botões ao serem clicados.
-- No início da tela do jogo, inicie com uma sequência automática de toques, seguido pelo turno do jogador para repetir a sequência.
-- Caso erre a sequência, exiba um alerta informativo e redirecione o usuário de volta à tela inicial.
-- Aumente o desafio a cada turno, incrementando a sequência de toques com uma cor aleatória, proporcionando uma experiência progressivamente desafiadora e envolvente.
+Para executar a aplicação, realize os passos a seguir:
 
-  > 👀 **Dicas:**
-  > - Busque quebrar os problemas em pedaços menores.
-  > - Evite repetição de código desnecessário.
-  > - Separe sua lógica em componentes para facilitar o entendimento.
-  > - Cuidado com o uso excessivo de useEffects para evitar loops infinitos.
-  > - Use e abuse de console.log para entender o que está acontecendo no seu código.
-  > - Fique a vontade para utilizar qualquer gerenciador de estado.
+* Clone o repositório ou realize um fork para o seu GitHub.
+* Entre no diretório do projeto --> `cd genius-game`.
+* Instale as dependências do projeto --> `npm install`.
+* Execute a aplicação --> `npm run dev`.
 
-## 🔨 Desafio extra para quem quer ir além
+<br />
+<p align="center">
+  <img alt="preview do projeto" width="650px" src="./.github/genius-game.gif" />
+<p>
 
-- Crie um sistema de pontuação que aumente a cada turno.
-- Exiba a pontuação máxima do jogador ao entrar no jogo. Você pode utilizar o Storage ou Cookies do navegador para armazenar a pontuação máxima.
-- Crie uma lógica que aumente a velocidade da sequência de toques a cada turno.
+## :rocket: Tecnologias
 
-## 💻 Setup do projeto
+  - `React JS`
+  > Biblioteca JavaScript para construção de interfaces de usuário.
+  - `React Router DOM`
+  > Biblioteca JavaScript para roteamento e navegação em aplicações React.
+  - `TypeScript`
+  > Linguagem de programação que adiciona tipagem estática ao JavaScript.
+  - `Tailwind CSS`
+  > Framework CSS que utiliza a metodologia CSS-in-JS.
+  - `SweetAlert2`
+  > Biblioteca JavaScript para substituir as caixas de alerta padrão.
+  - `ESLint`
+  > Utilitário para linting de código JavaScript.
+  - `Vercel`
+  > Plataforma de hospedagem voltada para aplicações web modernas e escaláveis.
 
-O projeto com a estrutura inicial já estará disponível para você na branch principal do repositório. Sua responsabilidade será apenas de implementar a lógica de acordo com o passo a passo acima.
+## :paintbrush: Layout
 
-## 🔍 Dicas
+🔗 [LINK DO FIGMA](https://www.figma.com/file/DCTzaIFSoyTFnPa5xMGybe/Genius-Game?type=design&node-id=0%3A1&mode=dev)
 
-- Estude sobre o funcionamento do jogo Genius.
-- Estude sobre componentização, estados e passagem de Props.
-- Estude sobre o ciclo de vida dos componentes React.
-- Estude sobre criação de rotas no React.
-- Estude sobre tipagem de dados com TypeScript.
-- Estude sobre Tailwind CSS e utilize com frequência a documentação.
-
-## 🎨 Design Sugerido
-
-Temos uma sugestão de design no Figma. Entretanto, fique à vontade para montar a aplicação conforme a sua criatividade.
-
-### Figma
-
-🔗 [Link do design]()
-
-## 👉🏽 Sobre esse mini-projeto
-
-### Tecnologias
-
-- **Tecnologias:**
-  - `React JS`;
-  - `React Router Dom`;
-  - `TypeScript`;
-  - `Tailwind CSS`;
-  - `Sweet Alert 2`;
+---
